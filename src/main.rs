@@ -1,12 +1,52 @@
 use std::collections::HashMap;
 use std::env;
 use std::fs;
+use std::fs::*;
+use std::error::Error;
+use std::fmt;
+use std::process::Command;
 
 #[derive(Debug)]
 struct SearchResult {
     sentence: String,
     row: u32
 }
+#[derive(Debug)]
+struct LocalFile {
+    file: File,
+    unlink: bool
+}
+
+#[derive(Debug)]
+struct MetaResult<'a> {
+    meta: HashMap<&'a str, &'a str>,
+    err: Error 
+}
+struct BodyResult<'a> {
+    body: &'a str,
+    err: Error
+}
+fn convert_pdf_text(path: &str) -> &'static str {
+    //let mut meta_result = MetaResult {meta: HashMap::new()};
+    //let mut body_result = BodyResult {};
+    let output = if cfg!(target_os = "linux") {
+    Command::new("pdfinfo")
+            .args(&[path])
+            .output()
+            .expect("failed to execute process");
+    } else {
+
+    };
+    println!("OUTPUT IS {:?}", output);
+    return "just for test";
+}
+impl LocalFile {
+    fn new() {
+        
+
+    }
+}
+
 
 fn str_with_whitespace<'a>(v: &'a [(usize,&str)]) -> String {
 
