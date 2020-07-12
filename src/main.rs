@@ -6,6 +6,8 @@ use std::error::Error;
 use std::fmt;
 use std::process::Command;
 
+mod extentions;
+use extentions::{Range, IsValid};
 #[derive(Debug)]
 struct SearchResult {
     sentence: String,
@@ -86,4 +88,8 @@ fn main() {
     count_vec.sort_by(|a, b| b.1.cmp(a.1));
    // println!("{:?}", count_vec);
     println!("{:?}", search_results);
+    let range:Range = ("2020-01-01", "2020-12-31");
+    if range.is_valid() {
+        println!("Range is valid!");
+    }
 }
